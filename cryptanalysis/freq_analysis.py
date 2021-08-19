@@ -14,7 +14,7 @@ def analyze_frequencies(characters):
         if _is_letter(char):
             freqs[char] = characters.count(char)
 
-    return freqs
+    return _sort_frequencies(freqs)
 
 
 def _cli_main():
@@ -32,6 +32,15 @@ def _is_letter(character):
     else:
         return False
 
+def _sort_frequencies(frequencies):
+    sorted_freqs = dict(sorted(
+        frequencies.items(),
+        key = lambda freqs: freqs[1],
+        reverse=True
+    ))
+
+    return sorted_freqs
+
 def _prompt_for_characters():
     print('Characters:\n')
     chars = input()
@@ -40,15 +49,10 @@ def _prompt_for_characters():
 
 def _report_frequencies(frequencies):
     num_letters = len(frequencies)
-    sorted_freqs = dict(sorted(
-        frequencies.items(),
-        key = lambda freqs: freqs[1],
-        reverse=True
-    ))
 
     print(f"Frequencies for {num_letters} letters:\n")
 
-    for char, freq in sorted_freqs.items():
+    for char, freq in frequencies.items():
         print(f'{char}: {freq}')
 
 
